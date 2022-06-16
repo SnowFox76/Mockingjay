@@ -1,14 +1,7 @@
-#####################################################################################
-#                                                                                   #
-#          Welcome to the Nero Encryption, an extension of the Caesar Cipher        #
-#                                                                                   #
-#####################################################################################
-
-#import libraries
 import encryptor as enc
 
 def main () :
-    
+    #Display the menu for options
     print ('\n','-'*28,
             ' '*12, 'MENU\n','-'*28,'\n',
             ' [*]  1.  Encrypt','\n',
@@ -26,6 +19,9 @@ def main () :
             cipher = enc.encrypt(encypted_char_value, char_coord, cipher_key)
             enc.cipher_printer(cipher)
             print ('\nYour Cipher is available in the "ouput.txt file"')
+            #Run these lines if you want the cipher displayed in the terminal
+            #cipher_as_print = enc.cipher_printer(cipher)
+            #print ('\n', cipher_as_print)
         elif user_choice == '2' :
             pass
 
