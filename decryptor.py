@@ -1,6 +1,6 @@
+#import libraries
 import numpy as np
 import pandas as pd
-
 
 def det_cipher_text() :
     """
@@ -9,7 +9,7 @@ def det_cipher_text() :
     print('Where is the cipher located?\n',
             '[*]  1.  The cipher is in the Text file "output.txt"\n',
             '[*}  2.  Clipboard (Copied it)\n'
-            '[*]  ENTER to return to Main Menu\n')
+            '[*]  Press ENTER to return to Main Menu\n')
     user_choice = input('Enter Choice: ')
     while user_choice != "" :
         if user_choice == '1' :
@@ -91,6 +91,6 @@ def decrypt (cipher_key, cal_user_text_lng, det_char_list, cal_char_shift) :
         #The final value of the character is derived from the reverse
         #calculation of the encryption method. 
         char_list.append(chr(val-cal_char_shift-loop_count))
-    #prints out the messege. 
-    for char in char_list :
-        print (char, end="",)
+    #converts the list to a string
+    plaintext = ' '.join(char_list)
+    return plaintext
