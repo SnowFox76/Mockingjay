@@ -18,7 +18,7 @@ def get_cipher_key() :
     This key is used as the seed for random character 
     generation throughout the encryption.
     """
-    cipher_key = input (" Enter Key: ")
+    cipher_key = input (" Enter Key:  ")
     #Converts the string to a numeric value
     key_total = 0
     #Sum of the 'value' of each character in non-numeric input to generate key value 
@@ -102,6 +102,8 @@ def encrypt(encrypted_char, char_coord, cipher_key, cipher_lng):
     #Replace the specific positions in character coordinates with the encrypted text values.
     for pos in char_coord :
         cipher[pos] = encrypted_char[char_coord.index(pos)]
+    #convert the list into a string
+    cipher = ' '.join(str(i) for i in cipher)
     return cipher
 
 def cipher_printer(cipher) :
