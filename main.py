@@ -26,10 +26,10 @@ def main () :
             while True :
                 user_print = input('\nDo you want to display the cipher? [Y]/[N]: ')
                 if user_print == 'Y' :
-                    #cipher_as_print = enc.cipher_printer(cipher)
-                    #print ('\n', cipher_as_print)
                     print (cipher)
+                    user_choice = input('\n\nPress ENTER to exit')
                 else :
+                    user_choice = ""
                     break
         elif user_choice == '2' :
             print ('\n','='*10,'Decryption','='*10,'\n\n')
@@ -40,6 +40,7 @@ def main () :
             cal_char_shift = dcr.det_char_shift(cipher_key)
             plaintext = dcr.decrypt(cipher_key, cal_user_text_lng, det_char_list, cal_char_shift)
             print (plaintext)
+            user_choice = input('\n\nPress ENTER to return to exit')
             
 
 if __name__ == '__main__' :
