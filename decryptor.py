@@ -1,6 +1,7 @@
 #import libraries
 import numpy as np
 import pandas as pd
+import random, hashlib
 
 def det_cipher_text() :
     """
@@ -28,13 +29,13 @@ def det_cipher_key() :
     Asks user to enter the key for the cipher
     """
     cipher_key = input('Enter Key: ')
-    #Determine the actual cipher key based on the encryption method
-    #for determining the cipher key value
-    key_total = 0
-    for i in cipher_key :    
-        key_total += ord(i)
-    #Determines the cipher key value
-    cipher_key = round(key_total*np.pi+3)
+     #encode the string input to for hashing
+    cipher_key = cipher_key.encode()
+    #hash the input string with SHA-3-256 hashing algorythm
+    cipher_key256 = hashlib.sha3_256(cipher_key).hexdigest()
+    #Use the hash to seed a numerical value usable by Numpy for seeding (0, 4294967296-1)
+    random.seed(cipher_key256)
+    cipher_key = random.randint(0,4294967295)
     return cipher_key
 
 def det_text_lng (cipher_key, cipher) :
@@ -44,7 +45,7 @@ def det_text_lng (cipher_key, cipher) :
     #Seed the random generator with cipher key
     np.random.seed(cipher_key)
     #Determine the factor of which the cipher lenth was created
-    cipher_lng_det = np.random.uniform(0.8,1.1,1)
+    cipher_lng_det = np.random.uniform(0.8,1.5,1)
     cipher_lng_det = float(cipher_lng_det[0])
     #use the factor, and the lenth of the cipher to determine the lenth
     #of the messege in the cipher

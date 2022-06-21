@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import random, hashlib
 
 #class encryptor :
    # """
@@ -19,13 +20,13 @@ def get_cipher_key() :
     generation throughout the encryption.
     """
     cipher_key = input (" Enter Key:  ")
-    #Converts the string to a numeric value
-    key_total = 0
-    #Sum of the 'value' of each character in non-numeric input to generate key value 
-    for i in cipher_key :    
-        key_total += ord(i)
-    #Rounding the output of the multiplication of the key to return a integer
-    cipher_key = round(key_total*np.pi+3)
+    #encode the string input to for hashing
+    cipher_key = cipher_key.encode()
+    #hash the input string with SHA-3-256 hashing algorythm
+    cipher_key256 = hashlib.sha3_256(cipher_key).hexdigest()
+    #Use the hash to seed a numerical value usable by Numpy for seeding (0, 4294967296-1)
+    random.seed(cipher_key256)
+    cipher_key = random.randint(0,4294967295)
     return cipher_key
 
 def get_cipher_lng (user_text, cipher_key) :
@@ -35,8 +36,8 @@ def get_cipher_lng (user_text, cipher_key) :
     """
     #Seed the random generation with the cipher key
     np.random.seed(cipher_key)
-    #Generate a random float between 0.8 and 1.1
-    cipher_lng_det = np.random.uniform(0.8,1.1,1)
+    #Generate a random float between 0.8 and 1.5
+    cipher_lng_det = np.random.uniform(0.8,1.5,1)
     cipher_lng_det = float(cipher_lng_det[0])
     #Use the random float as a determiner for the cipher lenth
     cipher_lng = round(len(user_text)*cipher_lng_det*np.pi)
@@ -97,7 +98,7 @@ def encrypt(encrypted_char, char_coord, cipher_key, cipher_lng):
     np.random.seed(cipher_key)
     #Generate an the entire random non-repetitive array of numericals
     #the lenght based on the previously determined cipher lenth. 
-    cipher = np.random.permutation(65535)[:cipher_lng]  
+    cipher = np.random.permutation(55000)[:cipher_lng]  
     cipher = cipher.tolist() #convert the numpy array to a list
     #Replace the specific positions in character coordinates with the encrypted text values.
     for pos in char_coord :

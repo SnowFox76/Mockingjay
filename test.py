@@ -1,6 +1,6 @@
 import numpy as np
-import pandas as pd
 import random
+import hashlib
 
 def dubchk(x) :
     dublic = 0
@@ -16,16 +16,16 @@ def dubchk(x) :
 
 
 cipher_key = input('Key: ')
-key_total = 0
-for i in cipher_key :    
-    key_total += ord(i)
-cipher_key = round(key_total*np.pi+3)
+cipher_key = cipher_key.encode()
+cipher_key256 = hashlib.sha3_256(cipher_key).hexdigest()
+random.seed(cipher_key256)
+cipher_key = random.randint(0,4294967295)
 user_text = input("Text: ")
 
 
 lng = len(user_text)
 np.random.seed(cipher_key)
-cipher_lng_det = np.random.uniform(0.8,1.1,1)
+cipher_lng_det = np.random.uniform(0.8,1.5,1)
 cipher_lng_det = float(cipher_lng_det[0])
 cipher_lng = round(lng*cipher_lng_det*np.pi)
 
@@ -51,7 +51,7 @@ for char in user_text :
 
 
 np.random.seed(cipher_key)
-cipher = np.random.permutation(65536)[:cipher_lng]
+cipher = np.random.permutation(55000)[:cipher_lng]
 #cipher = np.random.randint(65535, size=cipher_lng)
 cipher = cipher.tolist()
 for pos in char_coord :
@@ -60,12 +60,22 @@ print ('\ncipher length: {}'.format(len(cipher)))
 print ('user_text_length: {}\n'.format(len(user_text)))
 print ('\n',cipher)
 
+count = 0
+for i in cipher :
+    try :
+        print (chr(i), end=" ")
+        count += 1
+        if count % 15 == 0 :
+            print ()
+            count = 0
+    except(UnicodeEncodeError) :
+        print (i, end=" ")
 
 #############################################################
 
 
 np.random.seed(cipher_key)
-cipher_lng_det = np.random.uniform(0.8,1.1,1)
+cipher_lng_det = np.random.uniform(0.8,1.5,1)
 cipher_lng_det = float(cipher_lng_det[0])
 cal_user_text_lng = round(len(cipher)/cipher_lng_det/np.pi)
 np.random.seed(cipher_key)
@@ -97,13 +107,6 @@ for val in chr_val_list :
 for char in chr_list :
     print (char, end="",)
 
-##############################################################
-
-print ()
-if dubchk(cipher) :
-    print ('Duplicates')
-else :
-    print ('No Duplicates')
 
 
 """try:
