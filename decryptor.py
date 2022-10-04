@@ -29,7 +29,7 @@ def det_cipher_key() :
     Asks user to enter the key for the cipher
     """
     cipher_key = input('Enter Key: ')
-     #encode the string input to for hashing
+    #encode the string input to for hashing
     cipher_key = cipher_key.encode()
     #hash the input string with SHA-3-256 hashing algorythm
     cipher_key256 = hashlib.sha3_256(cipher_key).hexdigest()
